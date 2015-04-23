@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<objects xmlns="http://www.springframework.net">
+  <!-- PosInfoGetter-->
+  <object name="iso8583InfoGetter" type="IM.ISO8583.Utility.Iso8583InfoGetter, IM.ISO8583.Utility">
+    <constructor-arg name="posInfoUrl" type="string" value="IM.ISO8583.Utility.Config.iso8583Fn.xml"/>
+    <constructor-arg name="xPath" type="string" value= "//Message[@name='Common' and @peer='Common']"/>
+  </object>
+  <object name="bitWorker" type="IM.ISO8583.Utility.BitWorker, IM.ISO8583.Utility">
+    <constructor-arg name="infoGetter" ref="iso8583InfoGetter"/>
+  </object>
+  <!-- BitMapHelper -->
+  <object id="bitMapHelper" type="IM.ISO8583.Utility.BitMapHelper, IM.ISO8583.Utility">
+    <property name="HexConverter" ref="hexConverter"/>
+    <property name="BitMapper" ref="bitMapper"/>
+  </object>
+  <object name="df61InfoGetter" type="IM.ISO8583.Utility.Iso8583InfoGetter, IM.ISO8583.Utility">
+    <constructor-arg name="posInfoUrl" type="string" value="IM.ISO8583.Utility.Config.iso8583Fn.xml"/>
+    <constructor-arg name="xPath" type="string" value= "//Message[@name='DF61' and @peer='Common']"/>
+  </object>
+  <object name="df61BitWorker" type="IM.ISO8583.Utility.BitWorker, IM.ISO8583.Utility">
+    <constructor-arg name="infoGetter" ref="df61InfoGetter"/>
+  </object>
+  <object id="mainMsgWorker" type="IM.ISO8583.Utility.MainMsgWorker, IM.ISO8583.Utility">
+    <property name="BitMapHelper" ref="bitMapHelper"/>
+    <property name="BitWorker" ref="bitWorker"/>
+  </object>
+  <object id="df61MsgWorker" type="IM.ISO8583.Utility.Df61MsgWorker, IM.ISO8583.Utility">
+    <property name="BitMapHelper" ref="bitMapHelper"/>
+    <property name="Df61BitWorker" ref="df61BitWorker"/>
+  </object>
+</objects>

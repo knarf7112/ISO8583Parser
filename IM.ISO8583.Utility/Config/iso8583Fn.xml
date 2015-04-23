@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ISO8583>
+  <Message name="Common" peer="Common">
+    <BITS>
+      <BIT id="0" representation="b 64" name="Primary Bitmap"/>
+      <BIT id="1" representation="b 64" name="Secondary/Extended Bitmap"/>
+      <BIT id="2" representation="n ..19" name="Primary account number, ICC_NO"/>
+      <BIT id="3" representation="an 6" name="Processing code" />
+      <BIT id="4" representation="n 12" name="Amount, transaction"/>
+      <BIT id="5" representation="n 12" name="Amount, settlement"/>
+      <BIT id="6" representation="n 12" name="Amount, cardholder billing" />
+      <BIT id="7" representation="n 10" name="Transmission date &amp; time"	/>
+      <BIT id="8" representation="n 8"  name="Amount, cardholder billing fee"/>
+      <BIT id="9"  representation="n 8"	name="Conversion rate, settlement" />
+      <BIT id="10" representation="n 8" name="Conversion rate, cardholder billing"/>
+      <BIT id="11" representation="n 6"  name="System trace audit number"/>
+      <BIT id="12" representation="n 6"  name="Time, local transaction (hhmmss)"/>
+      <BIT id="13" representation="n 4"  name="Date, local transaction (MMDD)" />
+      <BIT id="14" representation="n 4"  name="Date, expiration"/>
+      <BIT id="15" representation="n 4"  name="Date, settlement"/>
+      <BIT id="16" representation="n 4"  name="Date, conversion"/>
+      <BIT id="17" representation="n 4"  name="Date, capture"/>
+      <BIT id="18" representation="n 4"  name="Merchant type"/>
+      <BIT id="19" representation="n 3"  name="Acquiring institution country code"/>
+      <BIT id="20" representation="n 3"  name="PAN extended, country code" />
+      <BIT id="21" representation="n 3"  name="Forwarding institution. country code"/>
+      <BIT id="22" representation="n 3"  name="Point of service entry mode"/>
+      <BIT id="23" representation="n 3"  name="Application PAN sequence number"/>
+      <BIT id="24" representation="n 3"  name="Function code (ISO 8583:1993)/Network International identifier (NII)"/>
+      <BIT id="25" representation="n 2"  name="Point of service condition code"/>
+      <BIT id="26" representation="n 2"  name="Point of service capture code"/>
+      <BIT id="27" representation="n 1"  name="Authorizing identification response length"/>
+      <BIT id="28" representation="x+n 8" name="Amount, transaction fee"/>
+      <BIT id="29" representation="x+n 8" name="Amount, settlement fee"/>
+      <BIT id="30" representation="x+n 8" name="Amount, transaction processing fee"/>
+      <BIT id="31" representation="x+n 8" name="Amount, settlement processing fee"/>
+      <BIT id="32" representation="n ..11" name="Acquiring institution identification code"/>
+      <BIT id="33" representation="n ..11" name="Forwarding institution identification code"/>
+      <BIT id="34" representation="ns ..28" name="Primary account number, extended"/>
+      <BIT id="35" representation="z ..37" name="Track 2 data"/>
+      <BIT id="36" representation="n ...104" name="Track 3 data"/>
+      <BIT id="37" representation="an 12"	name="Retrieval reference number"/>
+      <BIT id="38" representation="an 6"	name="Authorization identification response"/>
+      <BIT id="39" representation="an 2"	name="Response code"/>
+      <BIT id="40" representation="an 3"	name="Service restriction code"/>
+      <BIT id="41" representation="ans 8"	name="Card acceptor terminal identification"/>
+      <BIT id="42" representation="ans 15"	name="Card acceptor identification code"/>
+      <BIT id="43" representation="ans 40"	name="Card acceptor name/location (1-23 address 24-36 city 37-38 state 39-40 country)"/>
+      <BIT id="44" representation="an ..25"	name="Additional response data"/>
+      <BIT id="45" representation="an ..76"	name="Track 1 data"/>
+      <BIT id="46" representation="an ...999" name="Additional data - ISO"/>
+      <BIT id="47" representation="an ...999" name="Additional data - national"/>
+      <BIT id="48" representation="an ...999" name="Additional data - private"/>
+      <BIT id="49" representation="a or n 3" name="Currency code, transaction"/>
+      <BIT id="50" representation="a or n 3" name="Currency code, settlement"/>
+      <BIT id="51" representation="a or n 3" name="Currency code, cardholder billing"/>
+      <BIT id="52" representation="b 64" name="Personal identification number data, 16 hex digits"/>
+      <BIT id="53" representation="n 16" name="Security related control information"/>
+      <BIT id="54" representation="an ...120" name="Additional amounts"/>
+      <BIT id="55"  representation="ans ...999" name="Reserved ISO"/>
+      <BIT id="56"  representation="ans ...999" name="Reserved ISO"/>
+      <BIT id="57"  representation="ans ...999" name="Reserved national"/>
+      <BIT id="58"  representation="ans ...999" name="Reserved national"/>
+      <BIT id="59"  representation="ans ...999" name="Reserved national"/>
+      <BIT id="60"  representation="ans ...999" name="Reserved national"/>
+      <BIT id="61"  representation="ans ...999" name="Reserved private"/>
+      <BIT id="62"  representation="ans ...999" name="Reserved private"/>
+      <BIT id="63"  representation="ans ...999" name="Reserved private"/>
+      <BIT id="64" representation="b 16" name="Message authentication code (MAC), 4 hex digits"/>
+      <BIT id="65"  representation="b 1" name="Tertiary Bitmap extends (HEX 16 but may be BCD'd)"/>
+      <BIT id="66" representation="n 1" name="Settlement code"/>
+      <BIT id="67" representation="n 2" name="Extended payment code"/>
+      <BIT id="68" representation="n 3" name="Receiving institution country code"/>
+      <BIT id="69" representation="n 3" name="Settlement institution country code"/>
+      <BIT id="70" representation="n 3" name="Network management information code"/>
+      <BIT id="71" representation="n 4" name="Message number"/>
+      <BIT id="72" representation="n 4" name="Message number, last"/>
+      <BIT id="73" representation="n 6" name="Date, action (YYMMDD)"/>
+      <BIT id="74"  representation="n 10" name="Credits, number" />
+      <BIT id="75"  representation="n 10" name="Credits, reversal number"/>
+      <BIT id="76"  representation="n 10" name="Debits, number"/>
+      <BIT id="77"  representation="n 10" name="Debits, reversal number"/>
+      <BIT id="78"  representation="n 10" name="Transfer number"/>
+      <BIT id="79"  representation="n 10" name="Transfer, reversal number"/>
+      <BIT id="80"  representation="n 10" name="Inquiries number"/>
+      <BIT id="81"  representation="n 10" name="Authorizations, number"/>
+      <BIT id="82"  representation="n 12" name="Credits, processing fee amount"/>
+      <BIT id="83"  representation="n 12" name="Credits, transaction fee amount"/>
+      <BIT id="84"  representation="n 12" name="Debits, processing fee amount"/>
+      <BIT id="85"  representation="n 12" name="Debits, transaction fee amount"/>
+      <BIT id="86"  representation="n 16" name="Credits, amount"/>
+      <BIT id="87"  representation="n 16" name="Credits, reversal amount"/>
+      <BIT id="88"  representation="n 16" name="Debits, amount"/>
+      <BIT id="89"  representation="n 16" name="Debits, reversal amount"/>
+      <BIT id="90" 	representation="n 42" name="Original data elements"/>
+      <BIT id="91" 	representation="an 1" name="File update code"/>
+      <BIT id="92" 	representation="an 2" name="File security code"/>
+      <BIT id="93" 	representation="an 5" name="Response indicator"/>
+      <BIT id="94" 	representation="an 7" name="Service indicator"/>
+      <BIT id="95"  representation="an 42" name="Replacement amounts"/>
+      <BIT id="96"  representation="b 64" name="Message security code" />
+      <BIT id="97"  representation="x+n 16" name="Amount, net settlement"/>
+      <BIT id="98"  representation="ans 25" name="Payee" />
+      <BIT id="99"  representation="n ..11" name="Settlement institution identification code"/>
+      <BIT id="100" representation="n ..11" name="Receiving institution identification code"/>
+      <BIT id="101" representation="ans ..17" name="File name"/>
+      <BIT id="102" representation="ans ..28" name="Account identification 1"/>
+      <BIT id="103" representation="ans ..28" name="Account identification 2"/>
+      <BIT id="104" representation="ans ...100" name="Transaction description"/>
+      <BIT id="105" representation="ans ...999" name="Reserved for ISO use"/>
+      <BIT id="106" representation="ans ...999" name="Reserved for ISO use"/>
+      <BIT id="107" representation="ans ...999" name="Reserved for ISO use"/>
+      <BIT id="108" representation="ans ...999" name="Reserved for ISO use"/>
+      <BIT id="109" representation="ans ...999" name="Reserved for ISO use"/>
+      <BIT id="110" representation="ans ...999" name="Reserved for ISO use"/>
+      <BIT id="111" representation="ans ...999" name="Reserved for ISO use"/>
+      <BIT id="112" representation="ans ...999" name="Reserved for national use"/>
+      <BIT id="113" representation="ans ...999" name="Reserved for national use"/>
+      <BIT id="114" representation="ans ...999" name="Reserved for national use"/>
+      <BIT id="115" representation="ans ...999" name="Reserved for national use"/>
+      <BIT id="116" representation="ans ...999" name="Reserved for national use"/>
+      <BIT id="117" representation="ans ...999" name="Reserved for national use"/>
+      <BIT id="118" representation="ans ...999" name="Reserved for national use"/>
+      <BIT id="119" representation="ans ...999" name="Reserved for national use"/>
+      <BIT id="120" representation="ans ...999" name="Reserved for private use"/>
+      <BIT id="121" representation="ans ...999" name="Reserved for private use"/>
+      <BIT id="122" representation="ans ...999" name="Reserved for private use"/>
+      <BIT id="123" representation="ans ...999" name="Reserved for private use"/>
+      <BIT id="124" representation="ans ...999" name="Reserved for private use"/>
+      <BIT id="125" representation="ans ...999" name="Reserved for private use"/>
+      <BIT id="126" representation="ans ...999" name="Reserved for private use"/>
+      <BIT id="127" representation="ans ...999" name="Reserved for private use"/>
+      <BIT id="128" representation="b 64" name="Message authentication code"/>
+    </BITS>
+  </Message>
+  <Message name="DF61" peer="Common">
+    <BITS>
+      <BIT id="0"  representation="b 64" name="Primary Bitmap"/>
+      <BIT id="1"  representation="b 64" name="Secondary/Extended Bitmap"/>
+      <BIT id="2"  representation="n 8" name="TransDate"/>
+      <BIT id="3"  representation="n 8" name="StoreNo" />
+      <BIT id="4"  representation="n 3" name="RegId"/>
+      <BIT id="5"  representation="n 6" name="Sn"/>
+      <BIT id="6"  representation="n 8" name="ActDate" />
+      <BIT id="7"  representation="n 2" name="TransType"	/>
+      <BIT id="8"  representation="n 14" name="TransDateTime"/>
+      <BIT id="9"  representation="n 8"	name="ResponseCode" />
+      <BIT id="10"  representation="n 16" name="IccNo"/>
+      <BIT id="11" 	representation="n 8"  name="TransAmount"/>
+      <BIT id="12"  representation="n 14" name="TSAM_OSN"/>
+      <BIT id="13" 	representation="n 6"  name="TSAM_TSN" />
+      <BIT id="14" 	representation="n 8"  name="ICC_TSN"/>
+      <BIT id="15" 	representation="n 8"  name="ICC_LSN"/>
+      <BIT id="16" 	representation="n 8"  name="ICC_LA"/>
+      <BIT id="17" 	representation="n 8"  name="ICC_DSN"/>
+      <BIT id="18" 	representation="n 8"  name="ICC_DA"/>
+      <BIT id="19"  representation="n 14"  name="LSAM_ID"/>
+      <BIT id="20" 	representation="n 8"  name="LSAM_CSN" />
+      <BIT id="21" 	representation="n 8"  name="LSAM_CA"/>
+      <BIT id="22" 	representation="n 8"  name="LSAM_DSN"/>
+      <BIT id="23" 	representation="n 8"  name="LSAM_DA"/>
+      <BIT id="24" 	representation="n 8"  name="LSAM_DV"/>
+      <BIT id="25" 	representation="n 14"  name="PSAM_ID"/>
+      <BIT id="26" 	representation="n 8"  name="PSAM_CSN"/>
+      <BIT id="27" 	representation="n 8"  name="PSAM_CA"/>
+      <BIT id="28"  representation="n 8" name="PSAM_SBN"/>
+      <BIT id="29"  representation="n 8" name="PSAM_NRS"/>
+      <BIT id="30"  representation="n 8" name="PSAM_SV"/>
+      <BIT id="31"  representation="n 8" name="CardExpDate1"/>
+      <BIT id="32"  representation="an 8" name="MAC"/>
+      <BIT id="33"  representation="n 4" name="HsmCode"/>
+      <BIT id="34"  representation="an 19" name="MSRW_Terminal_SN"/>
+      <BIT id="35"  representation="an 20" name="NECM_ID"/>
+      <BIT id="36"  representation="n 8" name="ICC_BL"/>
+      <BIT id="37"  representation="an 12"	name="Retrieval reference number"/>
+      <BIT id="38"  representation="an 6"	name="Authorization identification response"/>
+      <BIT id="39"  representation="an 2"	name="Response code"/>
+      <BIT id="40"  representation="an 3"	name="Service restriction code"/>
+      <BIT id="41"  representation="ans 8"	name="Card acceptor terminal identification"/>
+      <BIT id="42"  representation="ans 15"	name="Card acceptor identification code"/>
+      <BIT id="43"  representation="ans 40"	name="Card acceptor name/location (1-23 address 24-36 city 37-38 state 39-40 country)"/>
+      <BIT id="44"  representation="an ..25"	name="Additional response data"/>
+      <BIT id="45"  representation="an ..76"	name="Track 1 data"/>
+      <BIT id="46"  representation="an ...999" name="Additional data - ISO"/>
+      <BIT id="47"  representation="an ...999" name="Additional data - national"/>
+      <BIT id="48"  representation="an ...999" name="Additional data - private"/>
+      <BIT id="49"  representation="a or n 3" name="Currency code, transaction"/>
+      <BIT id="50"  representation="a or n 3" name="Currency code, settlement"/>
+      <BIT id="51"  representation="a or n 3" name="Currency code, cardholder billing"/>
+      <BIT id="52" 	representation="b 64" name="Personal identification number data, 16 hex digits"/>
+      <BIT id="53" 	representation="n 16" name="Security related control information"/>
+      <BIT id="54"  representation="an ...120" name="Additional amounts"/>
+      <BIT id="55" representation="ans ...999" name="Reserved ISO"/>
+      <BIT id="56" representation="ans ...999" name="Reserved ISO"/>
+      <BIT id="57" representation="ans ...999" name="Reserved national"/>
+      <BIT id="58" representation="ans ...999" name="Reserved national"/>
+      <BIT id="59" representation="ans ...999" name="Reserved national"/>
+      <BIT id="60" representation="ans ...999" name="Reserved national"/>
+      <BIT id="61" representation="ans ...999" name="Reserved private"/>
+      <BIT id="62" representation="ans ...999" name="Reserved private"/>
+      <BIT id="63" representation="ans ...999" name="Reserved private"/>
+      <BIT id="64" representation="b 16" name="Message authentication code (MAC), 4 hex digits"/>
+    </BITS>
+  </Message>
+</ISO8583>
