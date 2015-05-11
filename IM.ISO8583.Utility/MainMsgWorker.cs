@@ -22,13 +22,14 @@ namespace IM.ISO8583.Utility
                 MsgContext msgContextMain = new MsgContext();
                 msgContextMain.SrcMessage = msg;
                 //
-                msgContextMain.MsgSize = Convert.ToInt32( msgContextMain.SrcMessage.Substring(msgContextMain.Start, 3), 10 );
-                if (msgContextMain.SrcMessage.Length != msgContextMain.MsgSize + 3)
-                {
-                    //log.Error("Message size error, expect " + msgContextMain.MsgSize + " but " + (msgContextMain.SrcMessage.Length - 3));
-                    throw new Exception( "Message size error, expect:[" + msgContextMain.MsgSize + "] but:[" + (msgContextMain.SrcMessage.Length - 3) + "]" );
-                }
-                msgContextMain.Start =+ 3;
+                msgContextMain.MsgSize = msgContextMain.SrcMessage.Length;// Convert.ToInt32(msgContextMain.SrcMessage.Substring(msgContextMain.Start, 3), 10);
+                msgContextMain.Start = 0;
+                //if (msgContextMain.SrcMessage.Length != msgContextMain.MsgSize + 3)
+                //{
+                //    //log.Error("Message size error, expect " + msgContextMain.MsgSize + " but " + (msgContextMain.SrcMessage.Length - 3));
+                //    throw new Exception( "Message size error, expect:[" + msgContextMain.MsgSize + "] but:[" + (msgContextMain.SrcMessage.Length) + "]" );// - 3) + "]" );
+                //}
+                //msgContextMain.Start =+ 3;
                 msgContextMain.FromTo = msgContextMain.SrcMessage.Substring(msgContextMain.Start, 8);
                 msgContextMain.Start = msgContextMain.Start + 8;
                 //
@@ -107,8 +108,8 @@ namespace IM.ISO8583.Utility
                 }
                 msgContextMain.SrcMessage = msgContextMain.FromTo + msgContextMain.Mti + this.BitMapHelper.GetBitMapHex(msgContextMain.BitMap) + msgContextMain.SrcMessage;
                 msgContextMain.MsgSize = msgContextMain.SrcMessage.Length;
-                msgContextMain.SrcMessage = msgContextMain.MsgSize.ToString("D3") + msgContextMain.SrcMessage;
-                log.Debug("MsgSource:{" + msgContextMain.SrcMessage + "}");
+                //msgContextMain.SrcMessage = msgContextMain.MsgSize.ToString("D3") + msgContextMain.SrcMessage;//頭3碼當作資料長度串接電文
+                log.Debug("Length:" + msgContextMain.MsgSize + "  MsgSource:{" + msgContextMain.SrcMessage + "}");
                 return msgContextMain;
             } catch( Exception ex)
             {

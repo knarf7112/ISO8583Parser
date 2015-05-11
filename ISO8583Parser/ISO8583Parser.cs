@@ -10,6 +10,18 @@ using Common.Logging;
 
 namespace ALOLAsync
 {
+    /// <summary>
+    /// 委派外部方法切割來源電文(byte[])並轉成純電文給ParseMsg去轉物件
+    /// </summary>
+    /// <param name="data">來源資料</param>
+    /// <returns>純ISO8583電文</returns>
+    public delegate string ParseRealMsg(byte[] data);
+    /// <summary>
+    /// 將物件轉純電文後再委派外部方法去加料純電文
+    /// </summary>
+    /// <param name="msg"></param>
+    /// <returns></returns>
+    public delegate byte[] BuildMsgAndAddHeader(string msg);
     public class ISO8583Parser
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ISO8583Parser));
@@ -83,7 +95,8 @@ namespace ALOLAsync
                     case "0302":
                         return (T)ParseLossReportOrAddRejectListRequest(msgString);
                     default:
-                        throw new Exception("[ParseMsg<T>] Message Type not defined:" + messageType);
+                        log.Debug("[ParseMsg<T>] Message Type not defined:" + messageType);
+                        return default(T);
                 }
             }
             catch (Exception ex)
@@ -93,7 +106,7 @@ namespace ALOLAsync
         }
 
         /// <summary>
-        /// 電文轉物件(0110/0130 | 0430 | 0800 | 0302)~~自己轉型吧
+        /// 電文轉物件[電文不含自定義資料長度的位元數](0110/0130 | 0430 | 0800 | 0302)~~自己轉型吧
         /// </summary>
         /// <typeparam name="T">(0110/0130/0430(AutoloadRqt_2Bank) | 0800(Sign_Domain) | 0302(AutoloadRqt_FBank))</typeparam>
         /// <param name="messageType">轉換的格式</param>
@@ -103,7 +116,7 @@ namespace ALOLAsync
         {
             try
             {
-                log.Debug("messageType:" + messageType);
+                log.Debug("開始電文轉物件  電文格式:" + messageType);
                 switch (messageType)
                 {
                     case "0110":
@@ -116,8 +129,37 @@ namespace ALOLAsync
                     case "0302":
                         return ParseLossReportOrAddRejectListRequest(msgString);
                     default:
-                        throw new Exception("[ParseMsg<T>] Message Type not defined:" + messageType);
+                        log.Debug("[ParseMsg<T>] Message Type not defined:" + messageType);
+                        return null;
                 }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 電文轉物件[電文包含自定義資料長度的位元數](0110/0130 | 0430 | 0800 | 0302)~~自己轉型吧
+        /// </summary>
+        /// <typeparam name="T">(0110/0130/0430(AutoloadRqt_2Bank) | 0800(Sign_Domain) | 0302(AutoloadRqt_FBank))</typeparam>
+        /// <param name="messageType">轉換的格式</param>
+        /// <param name="data">電文資料byte Array</param>
+        /// <param name="getMsg">委派的方法</param>
+        /// <returns>AutoloadRqt_2Bank/Sign_Domain/AutoloadRqt_FBank POCO(要自己輸入要轉哪種型別)</returns>
+        public object ParseMsg(string messageType, byte[] data,ParseRealMsg getMsg)
+        {
+            try
+            {
+                if (getMsg == null)
+                    throw new Exception("要委派執行的切碼方法未定義");
+                //交給外面去切離自定義的資料了,取得的就是單純要轉ISO8583的純電文
+                string msgString = getMsg.Invoke(data);
+                
+                //call 
+                object msgObj = this.ParseMsg(messageType, msgString);
+
+                return msgObj;
             }
             catch (Exception ex)
             {
@@ -315,7 +357,7 @@ namespace ALOLAsync
 
         #region Build Message
         /// <summary>
-        /// 物件轉換成電文(授權/代行授權/沖正授權)
+        /// 物件轉換成電文[不含自定義資料長度](授權/代行授權/沖正授權)
         /// </summary>
         /// <param name="messageType">要求格式(0100/0120/0121 | 0420/0421 | 0810 | 0312)</param>
         /// <param name="requestToBank">要求(授權/代行授權 | 沖正授權 | Sign On/Off/Echo | )物件</param>
@@ -340,6 +382,30 @@ namespace ALOLAsync
                     default:
                         throw new Exception("[GetRequestMsg] Message Type not defined:" + messageType);
                 }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 物件轉換成電文[含自定義資料長度位元數](授權/代行授權/沖正授權)
+        /// </summary>
+        /// <param name="messageType">要求格式(0100/0120/0121 | 0420/0421 | 0810 | 0312)</param>
+        /// <param name="requestToBank">要求(授權/代行授權 | 沖正授權 | Sign On/Off/Echo | )物件</param>
+        /// <returns>Response to Bank電文</returns>
+        public byte[] BuildMsg(string messageType,BuildMsgAndAddHeader addMethod, AutoloadRqt_2Bank requestToBank = null, AutoloadRqt_FBank responseFromBank = null, Sign_Domain responseSign = null)
+        {
+            try
+            {
+                if (addMethod == null)
+                    throw new Exception("未輸入加料的委派方法");
+                string msg = this.BuildMsg(messageType, requestToBank, responseFromBank, responseSign);
+                log.Debug("(物件變字串)純電文:" + msg);
+                log.Debug("開始執行加料...");
+                byte[] result = addMethod.Invoke(msg);
+                return result;
             }
             catch (Exception ex)
             {
